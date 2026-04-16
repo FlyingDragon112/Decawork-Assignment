@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+env/
+venv/
+.env
+
+# Build / coverage
+dist/
+build/
+htmlcov/
+.coverage
+coverage.xml
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Frontend
+node_modules/
+dist/
+frontend/dist/
+frontend/.vite/
+
+# Local runtime files
+*.sqlite3
+*.db
+
+instructions
+queries
+
+backend/bru_gemini.py

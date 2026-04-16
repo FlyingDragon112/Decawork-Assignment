@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Admin Panel</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ── Flash Container ──────────────────────────────────────────────── -->
+  <div id="flash-container"></div>
+
+  <!-- ── Sidebar ──────────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo-line">IT Admin</div>
+      <div class="logo-sub">Mock Panel · v1.0</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigation</div>
+
+      <a class="nav-item" data-page="dashboard" onclick="showPage('dashboard')">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <a class="nav-item" data-page="users" onclick="showPage('users')">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3z"/>
+        </svg>
+        Users
+      </a>
+
+      <a class="nav-item" data-page="new-user" onclick="showPage('new-user')">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2 2s-1 0-1-1 1-4 6-4v1.5a2.5 2.5 0 0 0 0 5V13c-5 0-6-3-6-4-.01-.01 0 0 1 0z"/>
+          <path d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5z"/>
+        </svg>
+        New User
+      </a>
+
+      <a class="nav-item" data-page="audit" onclick="showPage('audit')">
+        <svg viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2 1.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+        Audit Log
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <span class="status-dot"></span>API connected<br>
+      localhost:8000
+    </div>
+  </aside>
+
+  <!-- ── Main ─────────────────────────────────────────────────────────── -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <span class="topbar-title" id="topbar-title">Dashboard</span>
+      <span class="topbar-sep">·</span>
+      <span class="topbar-sub" id="topbar-sub">Overview</span>
+      <div class="topbar-actions" id="topbar-actions"></div>
+    </div>
+
+    <div class="content">
+
+      <!-- ── Page: Dashboard ─────────────────────────────────────────── -->
+      <div class="page" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-num" id="stat-total">–</div>
+            <div class="stat-lbl">Total Users</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-num" id="stat-active">–</div>
+            <div class="stat-lbl">Active</div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-num" id="stat-inactive">–</div>
+            <div class="stat-lbl">Inactive</div>
+          </div>
+        </div>
+
+        <div class="card mb-16">
+          <div class="card-header">
+            <span class="card-title">Recent Users</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th><th>Email</th><th>Role</th><th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recent-users-body">
+                <tr><td colspan="4" class="empty"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><span class="card-title">Quick Actions</span></div>
+          <div class="card-body">
+            <div class="quick-actions">
+              <button class="btn btn-success" onclick="showPage('new-user')">＋ Create User</button>
+              <button class="btn btn-primary" onclick="showPage('users')">◈ Manage Users</button>
+              <button class="btn btn-ghost"   onclick="showPage('audit')">⧖ Audit Log</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /dashboard -->
+
+      <!-- ── Page: Users ─────────────────────────────────────────────── -->
+      <div class="page" id="page-users">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">All Users</span>
+            <span class="card-count" id="users-count">0</span>
+            <button class="btn btn-primary btn-sm ml-auto" onclick="showPage('new-user')">＋ New User</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th><th>Email</th><th>Role</th>
+                  <th>Department</th><th>Status</th><th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-body">
+                <tr><td colspan="6" class="empty"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /users -->
+
+      <!-- ── Page: New User ──────────────────────────────────────────── -->
+      <div class="page" id="page-new-user">
+        <div class="card" style="max-width:540px">
+          <div class="card-header">
+            <span class="card-title">Create New User</span>
+          </div>
+          <div class="card-body">
+            <form id="create-user-form">
+              <div class="form-grid mb-16">
+                <div class="form-group">
+                  <label class="form-label" for="new-name">Full Name</label>
+                  <input id="new-name" class="form-input" type="text"
+                         placeholder="Jane Doe" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="new-email">Email Address</label>
+                  <input id="new-email" class="form-input" type="email"
+                         placeholder="jane@company.com" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="new-role">Role</label>
+                  <input id="new-role" class="form-input" type="text"
+                         placeholder="e.g. Engineer" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="new-dept">Department</label>
+                  <select id="new-dept" class="form-select">
+                    <option>Engineering</option>
+                    <option>Operations</option>
+                    <option>Finance</option>
+                    <option>HR</option>
+                    <option>Marketing</option>
+                    <option>IT</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Create User</button>
+              <button type="button" class="btn btn-ghost" onclick="showPage('users')" style="margin-left:8px">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div><!-- /new-user -->
+
+      <!-- ── Page: Audit Log ─────────────────────────────────────────── -->
+      <div class="page" id="page-audit">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Audit Log</span>
+            <span class="card-count" id="audit-count">0</span>
+            <button class="btn btn-ghost btn-sm ml-auto" onclick="loadAudit()">↺ Refresh</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Timestamp</th><th>Action</th><th>Target</th><th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="audit-body">
+                <tr><td colspan="4" class="empty"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /audit -->
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+
+  <!-- ── Modal: Password Reveal ───────────────────────────────────────── -->
+  <div class="modal-overlay" id="pw-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Temporary Password</span>
+        <button class="modal-close" onclick="closeModal('pw-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-sm muted mb-8">
+          A temporary password has been set for <strong id="pw-email" style="color:var(--text)"></strong>.
+          Share it securely and ask the user to change it on first login.
+        </p>
+        <div class="pw-reveal">
+          <span id="pw-value">–</span>
+          <button class="btn btn-ghost btn-sm" onclick="copyPassword()">Copy</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="closeModal('pw-modal')">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Modal: Delete Confirm ────────────────────────────────────────── -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Delete User</span>
+        <button class="modal-close" onclick="closeModal('delete-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-sm muted">
+          Are you sure you want to permanently delete
+          <strong id="del-name" style="color:var(--text)"></strong>
+          (<span id="del-email" class="mono" style="color:var(--muted)"></span>)?
+          This action cannot be undone.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('delete-modal')">Cancel</button>
+        <button class="btn btn-danger" id="del-confirm-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
